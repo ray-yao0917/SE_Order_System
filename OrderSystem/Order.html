@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OredrSystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="./js/order.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script> 
+  </head>
+  <body onload="init()">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+              <table>
+                <tbody>
+                  <tr><td><a href="index.html" class="btn btn-outline-secondary" >Product&Price</a></td></tr>
+                  <tr><td><a href="Customlization.html" class="btn btn-outline-secondary">Customlization</a></td></tr>
+                  <tr><td><a href="#" class="btn btn-secondary">Orders</a></td></tr>
+                    
+                </tbody>
+              </table>
+            </div>
+            <div class="col-8">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>品項</th>
+                            <th>金額</th>
+                            <th>日期</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction_record_info">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>
+                            bubble milk tea
+                            <ul class="list-style-type:disc">
+                                <li>half suger</li>
+                                <li>less ice</li>
+                                <li><h6>trible bubble</h6></li>
+                            </ul>
+                            green tea
+                            <ul class="list-style-type:disc">
+                                <li>half suger</li>
+                                <li>less ice</li>
+                          </td>
+                          <td>$70</td>
+                          <td>2077/7/7 7:7:7</td>
+                        </tr>
+                      </tbody>
+                </table>
+            </div>
+            <div class="col"></div>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </body>
+</html>

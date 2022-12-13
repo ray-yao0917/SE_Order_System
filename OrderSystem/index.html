@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OredrSystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="./js/index.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script> 
+  </head>
+  <body onload="init()">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+              <table>
+                <tbody>
+                  <tr><td><a href="#" class="btn btn-secondary">Product&Price</a></td></tr>
+                  <tr><td><a href="Customlization.html" class="btn btn-outline-secondary">Customlization</a></td></tr>
+                  <tr><td><a href="Order.html" class="btn btn-outline-secondary">Orders</a></td></tr>
+                    
+                </tbody>
+              </table>
+            </div>
+            <div class="col-8">
+                <table class="table table-striped">
+                    <thead>
+                        <tr >
+                            <th>#</th>
+                            <th>品項</th>
+                            <th>價格</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="product_info">
+                        <tr value="1">
+                          <th scope="row">1</th>
+                          <td>Milk Tea</td>
+                          <td>$40</td>
+                          <td><button type="button" id="edit_button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">...</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Red Tea</td>
+                          <td>$30</td>
+                          <td><button type="button" class="btn btn-outline-secondary">...</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Green Tea</td>
+                          <td>$30</td>
+                          <td><button type="button" class="btn btn-outline-secondary">...</button></td>
+                        </tr>
+                      </tbody>
+                </table>
+                <div><button type="button"  class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#add">Add</button></div>
+            </div>
+            <div class="col"></div>
+
+        </div>
+      </div>
+      <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增資料</h5>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        產品名稱&ensp;:&ensp;<input type="text" id="create_product_name" >
+                        <br/>
+                        <br/>
+                        產品價格&ensp;:&ensp;<input type="text" id="create_cost">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="create_button" class="btn btn-primary" data-bs-dismiss="modal">儲存</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">修改資料</h5>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        產品名稱&ensp;:&ensp;<input type="text" id="product_name" >
+                        <br/>
+                        <br/>
+                        產品價格&ensp;:&ensp;<input type="text" id="cost" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="delete_button" class="btn btn-primary" data-bs-dismiss="modal">刪除</button>
+                    <button type="button" id="updata_button" class="btn btn-primary" data-bs-dismiss="modal">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </body>
+</html>

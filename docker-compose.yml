@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+
+  webserver:
+    build: .
+    container_name: project114
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 8087:80
