@@ -27,6 +27,7 @@ $app->group('', function () use ($app) {
     $app->group('/api', function () use ($app) {
         $app->group('/login', function () use ($app) {
             $app->post('',  \admincontroller::class . ':login');
+            
         });
         $app->group('/product', function () use ($app) {
             $app->get('/items',  \homecontroller::class . ':get');
