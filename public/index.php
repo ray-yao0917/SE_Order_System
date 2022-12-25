@@ -19,7 +19,7 @@ $container = $app->getContainer();
 $container['view'] = __DIR__ . '/../templates/';
 
 $container['db'] = function ($c) {
-    $connection = new PDO('mysql:host=localhost;post=3306;dbname=project114', 'minlab', '970314970314');
+    $connection = new PDO('mysql:host=localhost;post=3306;dbname=automated_restaurant', 'root', '');
     return $connection;
 };
 
