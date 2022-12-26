@@ -17,46 +17,36 @@ class homecontroller extends Controller
             return $result_account;
         }
     }
-    public function get($request, $response, $args){
-        $home = new home($this->container->db);
+
+    public function check_table_status($request, $response, $args){
         $data = $request->getQueryParams();
-        $result = $home->get($data);
-        $this->responseJson($response, $result);
+        $home = new home($this->container->db);
+        $result = $home->get_tables_statu($data);
+        return $this->responseJson($response, $result);
+
     }
 
-
-    public function get_role($request, $response, $args){
-        $home = new home($this->container->db);
+    public function get_food_kind($request, $response, $args){
         $data = $request->getQueryParams();
-        $result = $home->get_role($data);
-        $this->responseJson($response, $result);
+        $home = new home($this->container->db);
+        $result = $home -> get_kind($data);
+        return $this->responseJson($response, $result);
     }
 
-    public function post_account($request, $response, $args){
+    public function retrieve_menu_info($request, $response, $args){
+        $data = $request->getQueryParams();
         $home = new home($this->container->db);
-        $data = $request->getParsedBody();
-        $result = [
-            'return'=>$this->register($data)
-        ];
-        $this->responseJson($response, $result);
-    }
-    public function patch($request, $response, $args){
-        $home = new home($this->container->db);
-        $data = $request->getParsedBody();
-        $result = [
-            'return'=>$home->patch($data)
-        ];
-        $result['data'] = $data;
-        $this->responseJson($response, $result);
+        $result = $home -> get_menu($data);
+        if(array_key_exists("kind_id", $data)) return $this->responseJson($response, array_shift($result));
+        return $this->responseJson($response, $result);
     }
 
-    public function delete($request, $response, $args){
+    public function retrieve_specify_food($request, $response, $args){
+        $data = $request->getQueryParams();
         $home = new home($this->container->db);
-        $data = $request->getParsedBody();
-        $result = [
-            'return'=>$home->delete($data)
-        ];
-        $result['data'] = $data;
-        $this->responseJson($response, $result);
+        $result = $home -> get_singal_dish($data);
+        return $this->responseJson($response, $result);
     }
+
+
 }

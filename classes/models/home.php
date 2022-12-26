@@ -3,26 +3,78 @@ use \Psr\Container\ContainerInterface;
 
 class home extends Model
 {
-    public function get($data){
-        $product_sql = "SELECT * FROM public.products 
-            ORDER BY id ASC";
-
-        $_get = $this->db->prepare($product_sql);
-        $_get->execute();
-        
-        return $_get->fetchAll(PDO::FETCH_ASSOC);
+    public function get_tables_statu($data){
+        $sql = "SELECT `table_status`.`table_id`, `table`.`table_number`, `table_status`.`status_id`, `status`.`status` 
+                FROM (`table_status` 
+                LEFT JOIN `table` ON `table_status`.`table_id` = `table`.`table_id`) 
+                LEFT JOIN `status` ON `table_status`.`status_id` = `status`.`table_status_id` ORDER BY table_id ASC;
+        ";
+        $sth = $this->container->db->prepare($sql);
+        $sth->execute($data);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
-    public function get_role($data){
-        $role_sql = "SELECT role_id, role_name
-                    FROM public.role
-                    ORDER BY role_id ASC";
-
-        $_get = $this->db->prepare($role_sql);
-        $_get->execute();        
-        return $_get->fetchAll(PDO::FETCH_ASSOC);
+    public function get_kind($data){
+        $sql = "SELECT * FROM `kind` ";
+        $sth = $this->container->db->prepare($sql);
+        $sth->execute($data);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
-    
+
+    public function get_menu($data){
+        $pre_defined_values = [
+            'cur_page' => 1,
+            'size' => 5
+        ];
+
+        foreach ($data as $key => $value) {
+            $pre_defined_values[$key] = $value;
+        }
+        $length = $pre_defined_values['size'] * $pre_defined_values['cur_page'];
+        $start = $length - $pre_defined_values['size'];
+        $pre_defined_values["length"] = $length;
+        $pre_defined_values["start"] = $start;
+        unset($pre_defined_values["cur_page"]);
+        unset($pre_defined_values["size"]);
+
+        $where_condition = "";
+        if (array_key_exists('item_id', $data)) {
+            $where_condition = "WHERE `item_kind`.`kind_id` = :`kind_id`";
+            $pre_defined_values["kind_id"] = $data["kind_id"];
+        }
+
+        $sql = "SELECT * 
+            FROM
+            (
+                SELECT `item_kind`.`kind_id`, `kind`.`kind_name`, `item_kind`.`item_id`, `item`.`item_name`, `item`.`price`,
+                        ROW_NUMBER() OVER (ORDER BY item_import.item_id ASC) AS rownum
+                FROM (`item_kind` 
+                LEFT JOIN `kind` ON `item_kind`.`kind_id` = `kind`.`kind_id`) 
+                LEFT JOIN `item` ON `item_kind`.`item_id` = `item`.`item_id`
+                {$where_condition}
+                LIMIT :length
+            )AS divide
+            WHERE divide.rownum > :start
+        ";
+
+        $sth = $this->container->db->prepare($sql);
+        $sth->execute($pre_defined_values);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function get_singal_dish($data){
+        $sql = " SELECT * FROM `item` 
+                 WHERE `item_id` = :item_id 
+        ";
+        $sth = $this->container->db->prepare($sql);
+        $sth->execute($data);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function post_account($data){
         $sql_account = "SELECT account
             FROM public.account
@@ -110,19 +162,4 @@ class home extends Model
         }
     }
 
-    public function patch($data){
-        $sql = "SELECT 'patch'
-        ";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
-    public function delete($data){
-        $sql = "SELECT 'delete'
-        ";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 }

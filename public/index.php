@@ -19,7 +19,7 @@ $container = $app->getContainer();
 $container['view'] = __DIR__ . '/../templates/';
 
 $container['db'] = function ($c) {
-    $connection = new PDO('mysql:host=localhost;post=3306;dbname=automated_restaurant', 'root', '');
+    $connection = new PDO('mysql:host=localhost;post=3306;dbname=automated_restaurant', 'root', '123456');
     return $connection;
 };
 
@@ -27,32 +27,26 @@ $app->group('', function () use ($app) {
     $app->group('/api', function () use ($app) {
         $app->group('/login', function () use ($app) {
             $app->post('',  \admincontroller::class . ':login');
+        });
+        $app->group('/waiter', function () use ($app){
+            $app->group('/table_status', function () use ($app){
+                $app->get('',  \homecontroller::class . ':check_table_status');
+            });
+            $app->group('/menu', function () use ($app){
+                $app->group('/kind', function () use ($app){
+                    $app->get('', \homecontroller::class . ':get_food_kind');
+                });
+                $app->get('s', \homecontroller::class . ':retrieve_menu_info');
+                $app->get('', \homecontroller::class . ':retrieve_menu_info');
+
+                $app->group('/food', function () use ($app){
+                    $app->get('', \homecontroller::class . ':retrieve_specify_food');
+                });
+            });
+
+            
             
         });
-        $app->group('/product', function () use ($app) {
-            $app->get('/items',  \homecontroller::class . ':get');
-            $app->post('/items',  \homecontroller::class . ':post');
-            $app->patch('/items',  \homecontroller::class . ':patch');
-            $app->delete('/items',  \homecontroller::class . ':delete');
-        });
-        $app->group('/customlization', function () use ($app) {
-            //$app->get('/items',  \homecontroller::class . ':get_items_by_id');
-            $app->get('/items',  \homecontroller::class . ':get');
-            $app->post('/items',  \homecontroller::class . ':post');
-            $app->patch('/items',  \homecontroller::class . ':patch');
-            $app->delete('/items',  \homecontroller::class . ':delete');
-        });
-        $app->group('/account', function () use ($app) {
-            $app->get('/items',  \homecontroller::class . ':get');
-            $app->post('/items',  \homecontroller::class . ':post_account');
-            $app->patch('/items',  \homecontroller::class . ':patch');
-            $app->delete('/items',  \homecontroller::class . ':delete');
-        });
-        /*$app->get('/items',  \homecontroller::class . ':get_items_by_id');
-        $app->get('/',  \homecontroller::class . ':get_items');
-        $app->post('/',  \homecontroller::class . ':post');
-        $app->patch('/',  \homecontroller::class . ':patch');
-        $app->delete('/',  \homecontroller::class . ':delete');*/
     });
 });
 
