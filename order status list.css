@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant');
+body {
+  background: #eee;
+  font-family: Assistant, sans-serif;
+}
+
+.cell-1 {
+  border-collapse: separate;
+  border-spacing: 0 4em;
+  background: #fff;
+  border-bottom: 5px solid transparent;
+  background-clip: padding-box;
+}
+
+thead {
+  background: #dddcdc;
+}
+
+.mybtn {
+  width: 40px;
+  height: 21px;
+  position: :center;
+  background: grey;
+  border-radius: 50px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.show.mybtn {
+    transition: rgb(5,243,96)
+}
+
