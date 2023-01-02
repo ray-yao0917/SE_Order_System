@@ -80,14 +80,14 @@ class home extends Model
             FROM public.account
             WHERE account = $data[account]
         ";
-        $temp = $this->db->prepare($sql_account);
+        $temp = $this->container->db->prepare($sql_account);
         $temp->execute();
         if ($temp === null) {
             $sql = "INSERT INTO public.account(account, password)
                 VALUES ($data[account], $data[password])
             ";
 
-            $stmt = $this->db->prepare($sql);
+            $stmt = $this->container->db->prepare($sql);
             $stmt->execute();
             return ['status'=> 1];
         }
@@ -100,7 +100,7 @@ class home extends Model
             FROM public.account
             WHERE account = $data[account]
         ";
-        $temp = $this->db->prepare($sql_account);
+        $temp = $this->container->db->prepare($sql_account);
         $temp->execute();
         if ($temp === null) {
             if ($data['role_id'] == 1) {
@@ -108,7 +108,7 @@ class home extends Model
                     (store_name, address)
                     VALUES ($data[store_name], $data[address])";
             
-                $store_stmt = $this->db->prepare($sql_store);
+                $store_stmt = $this->container->db->prepare($sql_store);
                 $store_stmt->excute();
                 return "true";
             }else{
@@ -116,7 +116,7 @@ class home extends Model
                     (name, phone)
                     VALUES (name, phone)";
                 
-                $buyer_stmt = $this->db->prepare($sql_buyer);
+                $buyer_stmt = $this->container->db->prepare($sql_buyer);
                 $buyer_stmt->excute();
                 return "true";
 
@@ -128,7 +128,7 @@ class home extends Model
             FROM public.account
             WHERE account = $data[account]
         ";
-        $temp = $this->db->prepare($sql_account);
+        $temp = $this->container->db->prepare($sql_account);
         $temp->execute();
         if ($temp === null) {
             if ($data['role_id'] === 1) {
@@ -137,7 +137,7 @@ class home extends Model
                     WHERE store_name == $data[store_name] AND address == $data[address]
                 ";
 
-                $user_id = $this->db->prepare($sql_user);
+                $user_id = $this->container->db->prepare($sql_user);
                 $user_id->excute();
             } else {
                 $sql_user = "SELECT buyer_id
@@ -145,7 +145,7 @@ class home extends Model
                     WHERE name == $data[name] AND phone == $data[phone]
                 ";
                 
-                $user_id = $this->db->prepare($sql_user);
+                $user_id = $this->container->db->prepare($sql_user);
                 $user_id->excute();
             }
             
@@ -154,7 +154,7 @@ class home extends Model
                 VALUES ($data[role_id], $user_id)
             ";
 
-            $account_role_stmt = $this->db->prepare($sql_account_role);
+            $account_role_stmt = $this->container->db->prepare($sql_account_role);
             $account_role_stmt->excute();
             return "true";
 
