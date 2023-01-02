@@ -33,6 +33,27 @@ class homecontroller extends Controller
         return $this->responseJson($response, $result);
     }
 
+    public function post_new_kind($request, $response, $args){
+        $data = $request->getParsedBody();
+        $home = new home($this->container);
+        $result = $home->post_kind($data);
+        return $this->responseJson($response, $result);
+    }
+
+    public function patch_kind($request, $response, $args){
+        $data = $request->getParsedBody();
+        $home = new home($this->container);
+        $result = $home->patch_kind($data);
+        return $this->responseJson($response, $result);
+    }
+
+    public function delete_kind($request, $response, $args){
+        $data = $request->getParsedBody();
+        $home = new home($this->container);
+        $result = $home->delete_kind($data);
+        return $this->responseJson($response, $result);
+    }
+
     public function retrieve_menu_info($request, $response, $args){
         $data = $request->getQueryParams();
         $home = new home($this->container->db);
@@ -45,6 +66,13 @@ class homecontroller extends Controller
         $data = $request->getQueryParams();
         $home = new home($this->container->db);
         $result = $home -> get_singal_dish($data);
+        return $this->responseJson($response, $result);
+    }
+
+    public function post_new_food($request, $response, $args){
+        $data = $request->getParsedBody();
+        $home = new home($this->container);
+        $result = $home->post_food($data);
         return $this->responseJson($response, $result);
     }
 

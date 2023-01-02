@@ -35,18 +35,25 @@ $app->group('', function () use ($app) {
             $app->group('/menu', function () use ($app){
                 $app->group('/kind', function () use ($app){
                     $app->get('', \homecontroller::class . ':get_food_kind');
+                    $app->post('', \homecontroller::class . ':post_new_kind');
+                    $app->patch('', \homecontroller::class . ':patch_kind');
+                    $app->delete('', \homecontroller::class . ':delete_kind');
                 });
                 $app->get('s', \homecontroller::class . ':retrieve_menu_info');
                 $app->get('', \homecontroller::class . ':retrieve_menu_info');
 
                 $app->group('/food', function () use ($app){
                     $app->get('', \homecontroller::class . ':retrieve_specify_food');
+                    $app->post('', \homecontroller::class . ':post_new_food');
                 });
-            });
-
-            
-            
+            });   
         });
+
+        $app->group('/photo', function() use ($app){
+            $app->get('', \admincontroller::class . ':get_picture');
+            $app->post('', \admincontroller::class . ':upload_picture');
+            $app->delete('', \admincontroller::class . ':remove_picture');
+        }); 
     });
 });
 

@@ -23,6 +23,63 @@ class home extends Model
         return $result;
     }
 
+    public function post_kind($data){
+        $sql = "INSERT INTO `kind`(`kind_name`) 
+                VALUES (:kind_name)";
+        $sth = $this->container->db->prepare($sql);
+        if ($sth->execute($data)) {
+            $status = [
+                "status" => "success",
+                "message" => "新增成功"
+            ];
+        } else {
+            $status = [
+                "status" => "failure",
+                "message" => "新增失敗"
+            ];
+        }
+        return $status;
+    }
+
+    public function patch_kind($data){
+        $sql = "UPDATE `kind` 
+                SET `kind_name` = :kind_name 
+                WHERE `kind_id` = :kind_id";
+
+        $sth = $this->container->db->prepare($sql);
+        if ($sth->execute($data)) {
+            $status = [
+                "status" => "success",
+                "message" => "修改成功"
+            ];
+        } else {
+            $status = [
+                "status" => "failure",
+                "message" => "修改失敗"
+            ];
+        }
+        return $status;
+    }
+
+    public function delete_kind($data){
+        $sql = "DELETE FROM `kind` 
+                WHERE `kind_id` = :kind_id";
+        
+        $sth = $this->container->db->prepare($sql);
+        if ($sth->execute($data)) {
+            $status = [
+                "status" => "success",
+                "message" => "刪除成功"
+            ];
+        } else {
+            $status = [
+                "status" => "failure",
+                "message" => "刪除失敗"
+            ];
+        }
+        return $status;
+    }
+
     public function get_menu($data){
         $pre_defined_values = [
             'cur_page' => 1,
@@ -73,6 +130,38 @@ class home extends Model
         $sth->execute($data);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function post_food($data){
+        $values = [
+            'item_id' => '',
+            'item_name' => '',
+            'price' => ''
+        ];
+
+        foreach ($values as $key => $value) {
+            if (array_key_exists($key, $data)) {
+                $values[$key] = $data[$key];
+            }
+        }
+
+        $sql = "INSERT INTO `item`(`item_name`, `price`) 
+                VALUES (:item_name, :price)
+                WHERE `item_id` = :item_id";
+
+        $sth = $this->container->db->prepare($sql);
+        if ($sth->execute($values)) {
+            $status = [
+                "status" => "success",
+                "message" => "新增成功"
+            ];
+        } else {
+            $status = [
+                "status" => "failure",
+                "message" => "新增失敗"
+            ];
+        }
+        return $status;
     }
 
     public function post_account($data){
