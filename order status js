@@ -1,0 +1,4 @@
+document.getElementsByClassName("btn d-flex mx-auto").onclick=funtion()
+{
+    alert ("系統已傳送訂單")
+ };
